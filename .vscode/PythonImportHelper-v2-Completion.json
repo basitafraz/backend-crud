@@ -1,0 +1,114 @@
+[
+    {
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
+        "isExtraImport": true,
+        "detail": "fastapi",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Item",
+        "kind": 6,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "class Item(BaseModel):\n    id: Optional[int] = None\n    name: str\n    description: str\n# Read all items\n@app.get(\"/items\", response_model=List[Item])\ndef read_items():\n    return data\n# Read single item by ID\n@app.get(\"/items/{item_id}\", response_model=Item)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "read_items",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def read_items():\n    return data\n# Read single item by ID\n@app.get(\"/items/{item_id}\", response_model=Item)\ndef read_item(item_id: int):\n    item = next((item for item in data if item[\"id\"] == item_id), None)\n    if item is None:\n        raise HTTPException(status_code=404, detail=\"Item not found\")\n    return item\n# Create a new item",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "read_item",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def read_item(item_id: int):\n    item = next((item for item in data if item[\"id\"] == item_id), None)\n    if item is None:\n        raise HTTPException(status_code=404, detail=\"Item not found\")\n    return item\n# Create a new item\n@app.post(\"/items\", response_model=Item)\ndef create_item(item: Item):\n    item.id = max([i[\"id\"] for i in data]) + 1 if data else 1\n    data.append(item.dict())",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "create_item",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def create_item(item: Item):\n    item.id = max([i[\"id\"] for i in data]) + 1 if data else 1\n    data.append(item.dict())\n    return item\n# Update an existing item by ID\n@app.put(\"/items/{item_id}\", response_model=Item)\ndef update_item(item_id: int, updated_item: Item):\n    item = next((item for item in data if item[\"id\"] == item_id), None)\n    if item is None:\n        raise HTTPException(status_code=404, detail=\"Item not found\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "update_item",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def update_item(item_id: int, updated_item: Item):\n    item = next((item for item in data if item[\"id\"] == item_id), None)\n    if item is None:\n        raise HTTPException(status_code=404, detail=\"Item not found\")\n    item.update(updated_item.dict(exclude_unset=True))\n    return item\n# Delete an item by ID\n@app.delete(\"/items/{item_id}\", response_model=dict)\ndef delete_item(item_id: int):\n    global data",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "delete_item",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def delete_item(item_id: int):\n    global data\n    data = [item for item in data if item[\"id\"] != item_id]\n    return {\"message\": \"Item deleted successfully\"}",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = FastAPI()\n# Sample static data\ndata = [\n    {\"id\": 1, \"name\": \"Item 1\", \"description\": \"This is item 1\"},\n    {\"id\": 2, \"name\": \"Item 2\", \"description\": \"This is item 2\"},\n    {\"id\": 3, \"name\": \"Item 3\", \"description\": \"This is item 3\"},\n]\n# Pydantic model for the data structure\nclass Item(BaseModel):\n    id: Optional[int] = None",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "data",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "data = [\n    {\"id\": 1, \"name\": \"Item 1\", \"description\": \"This is item 1\"},\n    {\"id\": 2, \"name\": \"Item 2\", \"description\": \"This is item 2\"},\n    {\"id\": 3, \"name\": \"Item 3\", \"description\": \"This is item 3\"},\n]\n# Pydantic model for the data structure\nclass Item(BaseModel):\n    id: Optional[int] = None\n    name: str\n    description: str",
+        "detail": "main",
+        "documentation": {}
+    }
+]
